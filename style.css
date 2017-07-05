@@ -1,0 +1,97 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+ul, h1, h2 {
+    padding: 0;
+    margin: 0;
+    margin-bottom: .5em
+}
+
+ul {
+    padding-left: 2em;
+}
+
+button[type=submit] {
+    display: block;
+}
+
+input {
+    padding: .2em;
+}
+
+.btn {
+    cursor: pointer;
+    outline: none;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    padding: .2em .5em;
+}
+
+.btn.btn-good {
+    color: #FFF;
+    background-color: #0281DB;
+    border-color: #07c;
+    box-shadow: inset 0 1px 0 #30A9FF;
+}
+
+.btn.btn-bad {
+    color: #FFF;
+    background-color: #FC5353;
+    border-color: red;
+    box-shadow: inset 0 1px 0 #FF7878;
+}
+
+.btn.btn-large {
+    padding: .3em .75em;
+}
+
+.mt {
+    margin-top: .75em;
+}
+
+.column {
+    display: inline-block;
+    vertical-align: top;
+    padding: 1em;
+}
+
+.item-title {
+    white-space: nowrap;
+    line-height: 1.8;
+}
+
+#edit-ok {
+    display: inline-block;
+    float: right;
+    line-height: 1.2
+}
+
+#edit-form {
+    padding: .3em 0
+}
+
+.edit {
+    margin: 0 .3em;
+}
+
+.controls {
+    float: right;
+    line-height: 1.65;
+}
+
+.success-holder {
+    color: #fff;
+    background-color: #37B514;
+}
+
+.error-holder {
+    color: #fff;
+    background-color: #FC5353;
+}
+
+.holder-inner {
+    padding: .75em;
+}
