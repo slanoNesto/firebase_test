@@ -25,7 +25,6 @@
     });
 
     function init() {
-        console.log('init');
         events.addSubmit = APP.events.add('submit', selectors.notesForm, addNoteSubmitHandler, true);
         events.xClick = APP.events.add('click', '.x', xClickHandler, true);
         events.editClick = APP.events.add('click', '.edit', editClickHandler, true);
