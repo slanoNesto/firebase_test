@@ -27,4 +27,5 @@
         return '<div class="holder-inner">' + message + '</div>'
     }
 
+
 })(window.APP);

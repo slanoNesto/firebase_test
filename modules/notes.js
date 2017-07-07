@@ -4,50 +4,60 @@
 
     const selectors = {
         notesForm: $('#data-form'),
-        titleInput: $('#title'),
+        titleId: 'title',
         itemClass: 'single-item',
         editFormId: 'edit-form',
         editInputId: 'edit-input',
         editOkId: 'edit-ok'
     };
-
+    const events = {};
     const ref = firebase.database().ref('notes');
     const notes = ref.child('notes');
 
-    notes.on('value', function(data) {
-        renderNotes(data.val());
-    }, function(error) {
-        APP.notifications.displayError(error.code);
+    APP.router.route('/notes', function() {
+        init();
+    }, function() {
+        events.addSubmit.destroy();
+        events.xClick.destroy();
+        events.editClick.destroy();
+        events.editSubmit.destroy();
+        notes.off('value');
     });
 
-    selectors.notesForm.on('submit', (event) => {
-        event.preventDefault();
-        let text = selectors.titleInput.val();
-        addItem(text, () => {
-            selectors.titleInput.val('');
+    function init() {
+        console.log('init');
+        events.addSubmit = APP.events.add('submit', selectors.notesForm, addNoteSubmitHandler, true);
+        events.xClick = APP.events.add('click', '.x', xClickHandler, true);
+        events.editClick = APP.events.add('click', '.edit', editClickHandler, true);
+        events.editSubmit = APP.events.add('submit', '#' + selectors.editFormId, editItemHandler, true);
+
+        notes.on('value', function(data) {
+            renderNotes(data.val());
+        }, function(error) {
+            APP.notifications.displayError(error.code);
         });
-    });
+    }
 
-    $(document).on('click', '.x', (e) => {
+    function addNoteSubmitHandler(event) {
+        event.preventDefault();
+        let inputEl = $('#' + selectors.titleId);
+        let text = inputEl.val();
+        addItem(text, function() {
+            inputEl.val('');
+        });
+    }
+
+    function xClickHandler(event) {
         let key = $(event.target).closest('.' + selectors.itemClass).data('key');
         removeItem(key);
-    });
+    }
 
-    $(document).on('click', '.edit', (e) => {
+    function editClickHandler(event) {
         let parent = $(event.target).closest('.' + selectors.itemClass);
         let key = parent.data('key');
         let currentTitle = parent.children('.item-title').text();
         let elementToAppend = parent.append('<span></span>');
         displayEdit(parent.find('.edit-holder'), currentTitle);
-    });
-
-    $(document).on('submit', '#' + selectors.editFormId, editItemHandler);
-    $(document).on('click', '#' + selectors.editOkId, editItemHandler);
-
-    function removeItem(key) {
-        notes.update({
-            [key]: null
-        });
     }
 
     function editItemHandler(event) {
@@ -55,6 +65,12 @@
         let key = $(event.target).closest('.' + selectors.itemClass).data('key');
         let inputValue = $('#' + selectors.editInputId).val();
         editItem(key, inputValue, hideEdit);
+    }
+
+    function removeItem(key) {
+        notes.update({
+            [key]: null
+        });
     }
 
     function editItem(key, title, cb) {
@@ -74,10 +90,11 @@
     }
 
     function renderNotes(data) {
+        let view = $('#main-view');
         APP.render.component('notes', {
             notes: data,
             className: selectors.itemClass
-        });
+        }, view);
     }
 
     function hideEdit(elements) {

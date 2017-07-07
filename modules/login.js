@@ -3,23 +3,34 @@
     const MODULE = 'login';
 
     const selectors = {
-        loginForm: $('#login-form'),
-        logoutBtn: $('#logout-btn'),
-        emailInput: $('#email'),
-        passwordInput: $('#password')
+        loginFormId: 'login-form',
+        logoutBtnId: 'logout-btn',
+        emailInputId: 'email',
+        passwordInputId: 'password'
     };
 
-    firebase.auth().onAuthStateChanged((user) => {
-        if (user) window.APP.notifications.displaySuccess('Logged in as: ' + user.email);
+    const events = {};
+
+    APP.router.route('/login', function() {
+        init();
+    }, function() {
+        events.loginSubmit.destroy();
+        events.logoutSubmit.destroy();
     });
 
-    selectors.loginForm.on('submit', (event) => {
+    function init() {
+        renderView();
+        events.loginSubmit = APP.events.add('submit', '#' + selectors.loginFormId, loginSubmitHandler);
+        events.logoutSubmit = APP.events.add('click', '#' + selectors.logoutBtnId, logoutSubmitHandler);
+    }
+
+    function loginSubmitHandler(event) {
         event.preventDefault();
         login();
-    });
-    selectors.logoutBtn.on('click', () => {
+    }
+    function logoutSubmitHandler(event) {
         logout();
-    });
+    }
 
     function logout() {
         firebase.auth().signOut();
@@ -28,11 +39,16 @@
     }
 
     function login() {
-        let email = selectors.emailInput.val() || 'milos.milutinovic@htecgroup.com';
-        let password = selectors.passwordInput.val() || 'passwordtest';
+        let email = $('#' + selectors.emailInputId).val() || 'milos.milutinovic@htecgroup.com';
+        let password = $('#' + selectors.passwordInputId).val() || 'passwordtest';
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
             displayError(error.message);
         });
+    }
+
+    function renderView() {
+        let view = $('#main-view');
+        APP.render.component('login', {}, view);
     }
 
 })(window.APP);

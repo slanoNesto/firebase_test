@@ -14,4 +14,8 @@
 
     firebase.initializeApp(config);
 
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) window.APP.notifications.displaySuccess('Logged in as: ' + user.email);
+    });
+
 })(window.APP);
