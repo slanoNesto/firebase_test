@@ -24,6 +24,10 @@
                 console.log('not found');
             })
             .resolve();
+
+            navigo.getLinkPath = function (link) {
+                return link.getAttribute('href');
+            };
     }
 
     function route(route, handler, leave) {
@@ -39,6 +43,7 @@
                 if (leave) leave(params);
             }
         });
+        navigo.updatePageLinks();
     }
 
     function navigate(route) {

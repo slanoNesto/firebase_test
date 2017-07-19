@@ -5,11 +5,13 @@
         <title>FB test</title>
 
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" type="text/css" href="lib/sweetalert/sweetalert.css">
 
         <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
         <script src="lib/navigo.js"></script>
+        <script src="lib/sweetalert/sweetalert.min.js"></script>
     </head>
     <body>
 
@@ -17,8 +19,10 @@
         <div>
             <div class="error-holder"></div>
             <div class="success-holder"></div>
-            <a href="/login" data-navigo>Login</a>
-            <a href="/notes" data-navigo>Notes</a>
+            <ul class="nav">
+                <li><a href="/login" class="nav-link" data-navigo>Login</a></li>
+                <li><a href="/notes" class="nav-link" data-navigo>Notes</a></li>
+            </ul>
         </div>
 
         <div id="main-view"></div>
@@ -28,6 +32,7 @@
         <script src="modules/shared/router.js"></script>
         <script src="modules/shared/notifications.js"></script>
         <script src="modules/shared/render.js"></script>
+        <script src="modules/shared/dialog.js"></script>
         <script src="modules/shared/util.js"></script>
         <script src="modules/login.js"></script>
         <script src="modules/notes.js"></script>

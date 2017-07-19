@@ -67,9 +67,11 @@
     }
 
     function removeItem(key) {
-        notes.update({
-            [key]: null
-        });
+        APP.dialog.confirm(function() {
+            return notes.update({
+                [key]: null
+            });
+        }, 'You will not be able to recover this note.');
     }
 
     function editItem(key, title, cb) {

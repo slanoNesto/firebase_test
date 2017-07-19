@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     padding: 0;
     margin: 0;
@@ -20,6 +24,10 @@ button[type=submit] {
 
 input {
     padding: .2em;
+}
+
+a {
+    text-decoration: none;
 }
 
 .btn {
@@ -94,4 +102,22 @@ input {
 
 .holder-inner {
     padding: .75em;
+}
+
+.nav {
+    padding: 0;
+    background-color: #0281DB;
+}
+.nav li {
+    list-style: none;
+    display: inline-block;
+    border-right: 1px solid #30A9FF;
+}
+.nav li:last-child {
+    border: none;
+}
+.nav-link {
+    display: block;
+    padding: .3em 1em;
+    color: #fff;
 }
